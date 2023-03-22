@@ -3,7 +3,10 @@ const router = express.Router();
 
 const { login, dashboard } = require("../controllers/main.js");
 
-router.route("/dashboard").get(dashboard);
+const authenticationMiddleware = require("../middleware/auth.js");
+
+router.route("/dashboard").get(authenticationMiddleware, dashboard);
+// we always add middleware before dashoboard - cause this is protected route
 router.route("/login").post(login);
 
 module.exports = router;
